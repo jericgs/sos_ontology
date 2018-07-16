@@ -1,0 +1,1053 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://les.uern.ppgcc.com.br#"
+     xml:base="http://les.uern.ppgcc.com.br"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:les="http://les.uern.ppgcc.com.br#">
+    <owl:Ontology rdf:about="http://les.uern.ppgcc.com.br">
+        <terms:description rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Analyze and classify in a maximum of two minutes the level of urgency of a occurrence, as well as the syndromic group of urgent cases of greater severity, and also assist in monitoring the vital signs of the patient, making it possible decrease response time, and also expedite the rapid exchange of support staff in necessary cases, during the emergency care.</terms:description>
+        <terms:autor rdf:datatype="http://www.w3.org/2001/XMLSchema#string">José Erico Gomes da Silva.</terms:autor>
+        <terms:title rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SOS Ontology: Help For Decision Making.</terms:title>
+        <owl:versionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#string">2.0</owl:versionInfo>
+        <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SOS Ontology.</rdfs:label>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.org/dc/terms/autor -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/autor"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/description -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/description"/>
+    
+
+
+    <!-- http://purl.org/dc/terms/title -->
+
+    <owl:AnnotationProperty rdf:about="http://purl.org/dc/terms/title"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasPrehospitalCare -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#hasPrehospitalCare">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasSigns -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#hasSigns">
+        <rdfs:subPropertyOf rdf:resource="http://les.uern.ppgcc.com.br#hasPrehospitalCare"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasSindromic_Group -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#hasSindromic_Group">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasSupport -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#hasSupport">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Medical_Regulation"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasSyndrome -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#hasSyndrome">
+        <rdfs:subPropertyOf rdf:resource="http://les.uern.ppgcc.com.br#hasSindromic_Group"/>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#isCompost -->
+
+    <owl:ObjectProperty rdf:about="http://les.uern.ppgcc.com.br#isCompost">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+        <rdfs:range rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasId -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasId">
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Medical_Regulation"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueFC -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueFC">
+        <rdfs:subPropertyOf rdf:resource="http://les.uern.ppgcc.com.br#hasValueS"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueGD -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueGD">
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueGU -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueGU">
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueS -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueS">
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueSAT -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueSAT">
+        <rdfs:subPropertyOf rdf:resource="http://les.uern.ppgcc.com.br#hasValueS"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#hasValueSG -->
+
+    <owl:DatatypeProperty rdf:about="http://les.uern.ppgcc.com.br#hasValueSG">
+        <rdfs:subPropertyOf rdf:resource="http://les.uern.ppgcc.com.br#hasValueGD"/>
+        <rdfs:domain rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Absolute -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Absolute">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">32</xsd:maxExclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSyndrome"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Etiologic"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSyndrome"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Semiological"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSyndrome"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Valency"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSyndrome"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#WithoutCategory"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#AdvancedChange"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#Moderate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#AdvancedChange -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#AdvancedChange">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Bradycardia"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                                    </owl:Restriction>
+                                    <owl:Restriction>
+                                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Tachycardia"/>
+                                    </owl:Restriction>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Bradycardia"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Tachycardia"/>
+                            </owl:Restriction>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#Moderate"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Advanced_Service -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Advanced_Service">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Support_Type"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#isCompost"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Absolute"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#BS_FOR_AS"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#Basic_Service"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#BS_FOR_AS -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#BS_FOR_AS">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Support_Type"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#isCompost"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#AdvancedChange"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#Basic_Service"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Basic_Service -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Basic_Service">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Support_Type"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#isCompost"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Moderate"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Bradycardia -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Bradycardia">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                <owl:someValuesFrom>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40</xsd:maxExclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+        <owl:disjointWith rdf:resource="http://les.uern.ppgcc.com.br#Tachycardia"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Etiologic -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Etiologic">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</xsd:minInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</xsd:maxInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Hypoxia -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Hypoxia">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSAT"/>
+                <owl:someValuesFrom>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.94</xsd:maxInclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Medical_Regulation -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Medical_Regulation">
+        <rdfs:subClassOf>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSupport"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Advanced_Service"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSupport"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#BS_FOR_AS"/>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSupport"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Basic_Service"/>
+                    </owl:Restriction>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSupport"/>
+                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Support_Type"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#isCompost"/>
+                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasId"/>
+                <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Moderate -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Moderate">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">32</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueGU"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">64</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSigns"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#None"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#None -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#None">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">-1</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSAT"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-1.0</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSAT"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">-1.0</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Normal -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Normal">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">40</xsd:minInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">200</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSAT"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:minExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.94</xsd:minExclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSAT"/>
+                                <owl:someValuesFrom>
+                                    <rdfs:Datatype>
+                                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+                                        <owl:withRestrictions rdf:parseType="Collection">
+                                            <rdf:Description>
+                                                <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1.0</xsd:maxInclusive>
+                                            </rdf:Description>
+                                        </owl:withRestrictions>
+                                    </rdfs:Datatype>
+                                </owl:someValuesFrom>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Semiological -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Semiological">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</xsd:minInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</xsd:maxInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Sindromic_Group -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Sindromic_Group">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Etiologic"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Semiological"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Valency"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#WithoutCategory"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Support_Type -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Support_Type">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#isCompost"/>
+                        <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Tachycardia -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Tachycardia">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueFC"/>
+                <owl:someValuesFrom>
+                    <rdfs:Datatype>
+                        <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                        <owl:withRestrictions rdf:parseType="Collection">
+                            <rdf:Description>
+                                <xsd:minExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">200</xsd:minExclusive>
+                            </rdf:Description>
+                        </owl:withRestrictions>
+                    </rdfs:Datatype>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Urgency_Level -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Urgency_Level">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/2002/07/owl#Thing"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Absolute"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#AdvancedChange"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Moderate"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasPrehospitalCare"/>
+                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasSindromic_Group"/>
+                <owl:someValuesFrom rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Valency -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Valency">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</xsd:minInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</xsd:maxInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Vital_Signs -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#Vital_Signs">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Bradycardia"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#None"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Normal"/>
+                            <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Tachycardia"/>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Bradycardia"/>
+                                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                            <owl:Class>
+                                <owl:intersectionOf rdf:parseType="Collection">
+                                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Hypoxia"/>
+                                    <rdf:Description rdf:about="http://les.uern.ppgcc.com.br#Tachycardia"/>
+                                </owl:intersectionOf>
+                            </owl:Class>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#WithoutCategory -->
+
+    <owl:Class rdf:about="http://les.uern.ppgcc.com.br#WithoutCategory">
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</xsd:minInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                    <owl:Restriction>
+                        <owl:onProperty rdf:resource="http://les.uern.ppgcc.com.br#hasValueSG"/>
+                        <owl:someValuesFrom>
+                            <rdfs:Datatype>
+                                <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+                                <owl:withRestrictions rdf:parseType="Collection">
+                                    <rdf:Description>
+                                        <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</xsd:maxInclusive>
+                                    </rdf:Description>
+                                </owl:withRestrictions>
+                            </rdfs:Datatype>
+                        </owl:someValuesFrom>
+                    </owl:Restriction>
+                </owl:intersectionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Occurrence -->
+
+    <owl:NamedIndividual rdf:about="http://les.uern.ppgcc.com.br#Occurrence">
+        <rdf:type rdf:resource="http://les.uern.ppgcc.com.br#Medical_Regulation"/>
+        <isCompost rdf:resource="http://les.uern.ppgcc.com.br#Urgency"/>
+        <hasId rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</hasId>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Syndrome -->
+
+    <owl:NamedIndividual rdf:about="http://les.uern.ppgcc.com.br#Syndrome">
+        <rdf:type rdf:resource="http://les.uern.ppgcc.com.br#Sindromic_Group"/>
+        <hasValueSG rdf:datatype="http://www.w3.org/2001/XMLSchema#int">0</hasValueSG>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#Urgency -->
+
+    <owl:NamedIndividual rdf:about="http://les.uern.ppgcc.com.br#Urgency">
+        <rdf:type rdf:resource="http://les.uern.ppgcc.com.br#Urgency_Level"/>
+        <hasSigns rdf:resource="http://les.uern.ppgcc.com.br#VitalSigns"/>
+        <hasSyndrome rdf:resource="http://les.uern.ppgcc.com.br#Syndrome"/>
+        <hasValueGU rdf:datatype="http://www.w3.org/2001/XMLSchema#int">100</hasValueGU>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://les.uern.ppgcc.com.br#VitalSigns -->
+
+    <owl:NamedIndividual rdf:about="http://les.uern.ppgcc.com.br#VitalSigns">
+        <rdf:type rdf:resource="http://les.uern.ppgcc.com.br#Vital_Signs"/>
+        <hasValueFC rdf:datatype="http://www.w3.org/2001/XMLSchema#int">120</hasValueFC>
+        <hasValueSAT rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0.95</hasValueSAT>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+

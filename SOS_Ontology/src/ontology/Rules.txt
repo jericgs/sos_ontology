@@ -1,0 +1,278 @@
+#Rules for inferences for indivduals
+
+@prefix ont: <http://les.uern.ppgcc.com.br#>
+
+
+#Rules_Sindromic_Group
+
+#Etiologic
+#Part_1
+[
+	rule_etiologic_part_1:
+	(?group ont:hasValueSG ?valueGrupoEtiologic)
+	ge (?valueGrupoEtiologic, "1"^^xsd:int)
+	(?group ont:hasValueSG ?valueGrupoEtiologic)
+	le (?valueGrupoEtiologic, "1"^^xsd:int)
+	->
+	(?group rdf:type ont:Etiologic)
+]
+
+#Semiological
+#Part_1
+[
+	rule_semiological_part_1:
+	(?group ont:hasValueSG ?valueGrupoSemiological)
+	ge (?valueGrupoSemiological, "2"^^xsd:int)
+	(?group ont:hasValueSG ?valueGrupoSemiological)
+	le (?valueGrupoSemiological, "2"^^xsd:int)
+	->
+	(?group rdf:type ont:Semiological)
+]
+
+#Valency
+#Part_1
+[
+	rule_valency_part_1:
+	(?group ont:hasValueSG ?valueGrupoValency)
+	ge (?valueGrupoValency, "3"^^xsd:int)
+	(?group ont:hasValueSG ?valueGrupoValency)
+	le (?valueGrupoValency, "3"^^xsd:int)
+	->
+	(?group rdf:type ont:Valency)
+]
+
+#WithoutCategory
+#Part_1
+[
+	rule_without_category_part_1:
+	(?group ont:hasValueSG ?valueGrupoWithoutCategory)
+	ge (?valueGrupoWithoutCategory, "0"^^xsd:int)
+	(?group ont:hasValueSG ?valueGrupoWithoutCategory)
+	le (?valueGrupoWithoutCategory, "0"^^xsd:int)
+	->
+	(?group rdf:type ont:WithoutCategory)
+]
+
+#Rules_Support_Type
+
+#Advanced_Service
+#Part_1
+[
+	rule_advanced_service_part_1:	
+	(?support ont:isCompost ?valueServiceAdvancedServiceCompost1)
+	(?valueServiceAdvancedServiceCompost1 rdf:type ont:Absolute)
+	->
+	(?support rdf:type ont:Advanced_Service)
+]
+
+#Basic_Service
+#Part_1
+[
+	rule_advanced_service_part_1:	
+	(?support ont:isCompost ?valueServiceBasicServiceCompost1)
+	(?valueServiceBasicServiceCompost1 rdf:type ont:Moderate)
+	->
+	(?support rdf:type ont:Basic_Service)
+]
+
+#BS_FOR_AS
+#Part_1
+[
+	rule_bs_for_as_part_1:	
+	(?support ont:isCompost ?valueServiceBs_For_AsCompost1)
+	(?valueServiceBs_For_AsCompost1 rdf:type ont:AdvancedChange)
+	->
+	(?support rdf:type ont:BS_FOR_AS)
+]
+
+#Rules_Urgency_Level
+
+#Absolute
+#Part_1
+[
+	rule_absolute_part_1:
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU1)
+	ge (?valueLevelAbsoluteGU1, "0"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU1)
+	lessThan (?valueLevelAbsoluteGU1, "32"^^xsd:int)	
+	(?level ont:hasSyndrome ?valueLevelAbsoluteSyndrome1)
+	(?valueLevelAbsoluteSyndrome1 rdf:type ont:Etiologic)	
+	->
+	(?level rdf:type ont:Absolute)
+]
+#Part_2
+[
+	rule_absolute_part_2:
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU2)
+	ge (?valueLevelAbsoluteGU2, "0"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU2)
+	lessThan (?valueLevelAbsoluteGU2, "32"^^xsd:int)	
+	(?level ont:hasSyndrome ?valueLevelAbsoluteSyndrome2)
+	(?valueLevelAbsoluteSyndrome2 rdf:type ont:Semiological)	
+	->
+	(?level rdf:type ont:Absolute)
+]
+#Part_3
+[
+	rule_absolute_part_3:
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU3)
+	ge (?valueLevelAbsoluteGU3, "0"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU3)
+	lessThan (?valueLevelAbsoluteGU3, "32"^^xsd:int)	
+	(?level ont:hasSyndrome ?valueLevelAbsoluteSyndrome3)
+	(?valueLevelAbsoluteSyndrome3 rdf:type ont:Valency)	
+	->
+	(?level rdf:type ont:Absolute)
+]
+#Part_4
+[
+	rule_absolute_part_4:
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU4)
+	ge (?valueLevelAbsoluteGU4, "0"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAbsoluteGU4)
+	lessThan (?valueLevelAbsoluteGU4, "32"^^xsd:int)	
+	(?level ont:hasSyndrome ?valueLevelAbsoluteSyndrome4)
+	(?valueLevelAbsoluteSyndrome4 rdf:type ont:WithoutCategory)	
+	->
+	(?level rdf:type ont:Absolute)
+]
+
+#AdvancedChange
+#Part_1
+[
+	rule_advanced_change_part_1:
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU1)
+	ge (?valueLevelAdvancedChangeGU1, "100"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU1)
+	le (?valueLevelAdvancedChangeGU1, "100"^^xsd:int)	
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns1)
+	(?valueLevelAdvancedChangeSigns1 rdf:type ont:Bradycardia)
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns1)
+	(?valueLevelAdvancedChangeSigns1 rdf:type ont:Hypoxia)	
+	->
+	(?level rdf:type ont:AdvancedChange)
+]
+#Part_2
+[
+	rule_advanced_change_part_2:
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU2)
+	ge (?valueLevelAdvancedChangeGU2, "100"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU2)
+	le (?valueLevelAdvancedChangeGU2, "100"^^xsd:int)		
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns2)
+	(?valueLevelAdvancedChangeSigns2 rdf:type ont:Hypoxia)
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns2)
+	(?valueLevelAdvancedChangeSigns2 rdf:type ont:Tachycardia)		
+	->
+	(?level rdf:type ont:AdvancedChange)	
+]
+#Part_3
+[
+	rule_advanced_change_part_3:
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU3)
+	ge (?valueLevelAdvancedChangeGU3, "100"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU3)
+	le (?valueLevelAdvancedChangeGU3, "100"^^xsd:int)	
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns3)
+	(?valueLevelAdvancedChangeSigns3 rdf:type ont:Bradycardia)	
+	->
+	(?level rdf:type ont:AdvancedChange)
+]
+#Part_4
+[
+	rule_advanced_change_part_4:
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU4)
+	ge (?valueLevelAdvancedChangeGU4, "100"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU4)
+	le (?valueLevelAdvancedChangeGU4, "100"^^xsd:int)	
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns4)
+	(?valueLevelAdvancedChangeSigns4 rdf:type ont:Hypoxia)	
+	->
+	(?level rdf:type ont:AdvancedChange)
+	
+]
+#Part_5
+[
+	rule_advanced_change_part_5:
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU5)
+	ge (?valueLevelAdvancedChangeGU5, "100"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelAdvancedChangeGU5)
+	le (?valueLevelAdvancedChangeGU5, "100"^^xsd:int)	
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns5)
+	(?valueLevelAdvancedChangeSigns5 rdf:type ont:Tachycardia)	
+	->
+	(?level rdf:type ont:AdvancedChange)
+]
+
+#Moderate
+#Part_1
+[
+	rule_moderate_part_1:
+	(?level ont:hasValueGU ?valueLevelModerateGU1)
+	ge (?valueLevelModerateGU1, "32"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelModerateGU1)
+	le (?valueLevelModerateGU1, "64"^^xsd:int)	
+	->
+	(?level rdf:type ont:Moderate)
+]
+
+#Part_2
+[
+	rule_moderate_part_2:
+	(?level ont:hasValueGU ?valueLevelModerateGU2)
+	ge (?valueLevelModerateGU2, "32"^^xsd:int)
+	(?level ont:hasValueGU ?valueLevelModerateGU2)
+	le (?valueLevelModerateGU2, "64"^^xsd:int)
+	(?level ont:hasSigns ?valueLevelAdvancedChangeSigns2)
+	(?valueLevelAdvancedChangeSigns2 rdf:type ont:None)	
+	->
+	(?level rdf:type ont:Moderate)
+]
+
+#Rules_Vital_Signs
+
+#Bradycardia
+#Part_1
+[
+	rule_bradycardia_part_1:
+	(?signs ont:hasValueFC ?valueSignsBradycardia)
+	lessThan (?valueSignsBradycardia, "40"^^xsd:int)
+	->
+	(?signs rdf:type ont:Bradycardia)
+]
+
+#Hypoxia
+#Part_1
+[
+	rule_hypoxia_part_1:
+	(?signs ont:hasValueSAT ?valueSignsHypoxia)
+	le (?valueSignsHypoxia, "0.94"^^xsd:double)
+	->
+	(?signs rdf:type ont:Hypoxia)
+]
+
+#None
+#Part_1
+[
+	rule_none_part_1:
+	(?signs ont:hasValueFC ?valueSignsNoneFC)
+	ge (?valueSignsNoneFC, "-1"^^xsd:int)
+	(?signs ont:hasValueFC ?valueSignsNoneFC)
+	le (?valueSignsNoneFC, "-1"^^xsd:int)	
+	(?signs ont:hasValueSAT ?valueSignsNoneSAT)
+	ge (?valueSignsNoneSAT, "-1.0"^^xsd:double)
+	(?signs ont:hasValueSAT ?valueSignsNoneSAT)
+	le (?valueSignsNoneSAT, "-1.0"^^xsd:double)
+	->
+	(?signs rdf:type ont:None)
+]
+
+#Tachycardia
+#Part_1
+[
+	rule_tachycardia_part_1:
+	(?signs ont:hasValueFC ?valueSignsTachycardiaFC)
+	greaterThan (?valueSignsTachycardiaFC, "200"^^xsd:int)
+	->
+	(?signs rdf:type ont:Tachycardia)
+]
