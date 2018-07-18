@@ -5,7 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +12,6 @@
         <title>SOS_Ontology</title>
     </head>
     <body>
-        <h1>Rodando...</h1>
+        <h1>Rodando...</h1>        
     </body>
 </html>

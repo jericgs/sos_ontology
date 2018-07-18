@@ -9,9 +9,6 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
-import java.util.UUID;
-import jdk.nashorn.internal.objects.DataPropertyDescriptor;
 
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.Individual;
@@ -28,7 +25,6 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.InfModel;
-import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
@@ -37,19 +33,13 @@ import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.reasoner.rulesys.GenericRuleReasonerFactory;
 import org.apache.jena.shared.JenaException;
-import org.apache.jena.update.UpdateExecutionFactory;
-import org.apache.jena.update.UpdateFactory;
-import org.apache.jena.update.UpdateProcessor;
-import org.apache.jena.update.UpdateRequest;
 import org.apache.jena.util.FileManager;
 import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.ReasonerVocabulary;
-import org.apache.jena.vocabulary.XSD;
 
 //esse  código é para a manipulação dos dados - inseridos, pesquisa etc
 //na outra classe deu erro por causa do ontoModel
-public class OntologyManipulation {
+public final class OntologyManipulation {
 
     private OntModel ontoModel; // modelo que armazena a estrutura da ontologia
     private InfModel infeReadModel; // modelo inferido da ontologia
@@ -76,29 +66,7 @@ public class OntologyManipulation {
     public void executeReasoner() {
         Reasoner reasoner = ReasonerRegistry.getOWLMicroReasoner();
         infeReadModel = ModelFactory.createInfModel(reasoner, ontoModel);
-        // printOntModel(infeReadModel);
-    }
-
-    // Método que lê as regras jena e insere os resultados no modelo inferido
-    public void processJenaRules() {
-        // create a simple model; create a resource and add rules from a file
-        System.out.println("Executing jean rules processing...");
-
-        try {
-            Model m = ModelFactory.createDefaultModel();
-            Resource configuration = m.createResource();
-            configuration.addProperty(ReasonerVocabulary.PROPruleSet, jenaRulesFilePath);
-
-            // Create an instance of a reasoner
-            Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(configuration);
-
-            // Now with the rawdata model & the reasoner, create an InfModel
-            infeReadModel = ModelFactory.createInfModel(reasoner, ontoModel);
-            validateModel(infeReadModel);
-        } catch (Exception e) {
-            System.out.println("Error while running jena rules...");
-            e.printStackTrace();
-        }
+        //printOntModel(infeReadModel);
     }
 
     // Método que valida o modelo inferido
@@ -123,70 +91,92 @@ public class OntologyManipulation {
         ontoModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM, null);
         System.out.println("Loading Ontology " + filePath + " ...");
         try {
-            InputStream in = FileManager.get().open(file);
+            InputStream in = FileManager.get().open(file);           
             try {
-                ontoModel.read(in, null);
+                ontoModel.read(in, "SOS_Ontology");
+                //in.close();
             } catch (Exception e) {
-                e.printStackTrace();
             }
             Iterator iter = ontoModel.listOntologies();
             if (iter.hasNext()) {
                 Ontology onto = (Ontology) iter.next();
                 URI = onto.getURI();
+
             }
-            //System.out.println(URI);
+            System.out.println("OK: " + URI);
         } catch (JenaException je) {
             System.err.println("ERROR" + je.getMessage());
-            je.printStackTrace();
             System.exit(0);
         }
     }
 
+    // Método que lê as regras jena e insere os resultados no modelo inferido
+    public void processJenaRules() {
+        // create a simple model; create a resource and add rules from a file
+        System.out.println("Executing jean rules processing...");
+
+        try {
+            Model model = ModelFactory.createDefaultModel();
+            Resource configuration = model.createResource();
+            System.out.println("Passou: " + configuration);
+            configuration.addProperty(ReasonerVocabulary.PROPruleSet, jenaRulesFilePath);
+
+            // Create an instance of a reasoner
+            Reasoner reasoner = GenericRuleReasonerFactory.theInstance().create(configuration);
+
+            // Now with the rawdata model & the reasoner, create an InfModel
+            infeReadModel = ModelFactory.createInfModel(reasoner, ontoModel);
+            validateModel(infeReadModel);
+        } catch (Exception e) {
+            System.out.println("Error while running jena rules..." + e);
+        }
+    }
+
     //Inserino dados na SOS Ontology
-    public void inserindoDadosOntology(int id, int sindromeGupo, int grauUgencia, int freqCardiaca, double satOxigenio) {                                          
+    public void inserindoDadosOntology(int id, int sindromeGupo, int grauUgencia, int freqCardiaca, double satOxigenio) {
 
         String occurrence = "Occurrence";
         occurrence = URI + "#" + occurrence;
         OntClass medicalRegulationClass = ontoModel.getOntClass(URI + "#Medical_Regulation");
         Individual occurrenceInd = ontoModel.createIndividual(occurrence, medicalRegulationClass);
-        
+
         DatatypeProperty hasID = ontoModel.createDatatypeProperty(URI + "#hasID");
         ObjectProperty isCompost = ontoModel.createObjectProperty(URI + "#isCompost");
         occurrenceInd.addProperty(hasID, ontoModel.createTypedLiteral(id));
-        
+
         String urgency = "Urgency";
         urgency = URI + "#" + urgency;
         OntClass urgencyLevelClass = ontoModel.getOntClass(URI + "#Urgency_Level");
         Individual urgencyInd = ontoModel.createIndividual(urgency, urgencyLevelClass);
-        
+
         DatatypeProperty hasValueGU = ontoModel.createDatatypeProperty(URI + "#hasValueGU");
         ObjectProperty hasSyndrome = ontoModel.createObjectProperty(URI + "#hasSyndrome");
         ObjectProperty hasSigns = ontoModel.createObjectProperty(URI + "#hasSigns");
         urgencyInd.addProperty(hasValueGU, ontoModel.createTypedLiteral(grauUgencia));
-        
+
         String syndrome = "Syndrome";
         syndrome = URI + "#" + syndrome;
         OntClass sindromicGroupClass = ontoModel.getOntClass(URI + "#Sindromic_Group");
         Individual syndromeInd = ontoModel.createIndividual(syndrome, sindromicGroupClass);
-        
+
         DatatypeProperty hasValueSG = ontoModel.createDatatypeProperty(URI + "#hasValueSG");
         syndromeInd.addProperty(hasValueSG, ontoModel.createTypedLiteral(sindromeGupo));
-        
+
         String vitalSigns = "VitalSigns";
         vitalSigns = URI + "#" + vitalSigns;
         OntClass vitalSignsClass = ontoModel.getOntClass(URI + "#Vital_Signs");
         Individual vitalSignsInd = ontoModel.createIndividual(vitalSigns, vitalSignsClass);
-        
+
         DatatypeProperty hasValueSAT = ontoModel.createDatatypeProperty(URI + "#hasValueSAT");
         DatatypeProperty hasValueFC = ontoModel.createDatatypeProperty(URI + "#hasValueFC");
         vitalSignsInd.addProperty(hasValueSAT, ontoModel.createTypedLiteral(satOxigenio));
         vitalSignsInd.addProperty(hasValueFC, ontoModel.createTypedLiteral(freqCardiaca));
-        
-        occurrenceInd.addProperty(isCompost, urgencyInd);               
+
+        occurrenceInd.addProperty(isCompost, urgencyInd);
         urgencyInd.addProperty(hasSyndrome, syndromeInd);
         urgencyInd.addProperty(hasSigns, vitalSignsInd);
 
-    }   
+    }
 
     public String formPrefixQuery(String URI, String prefix) {
         return "PREFIX " + prefix + ": <" + URI + "#>";
@@ -199,14 +189,12 @@ public class OntologyManipulation {
         File file = new File(filePath);
 
         try {
-            FileWriter fw = new FileWriter(file);
-            fw.write(owlCode);
-            fw.close();
+            try (FileWriter fw = new FileWriter(file)) {
+                fw.write(owlCode);
+            }
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -225,7 +213,6 @@ public class OntologyManipulation {
         ontoModel.write(System.out, "TTL");
     }
 
-    
     // método que retorna o resultado da classificação
     public String inferencia(String individual) {
 
@@ -238,7 +225,7 @@ public class OntologyManipulation {
                 + "ont:" + individual + " rdf:type ?type .\n"
                 + "}\n";
 
-        //System.out.println(queryString);
+        System.out.println(queryString);
         Query query = QueryFactory.create(queryString);
 
         ResultSet results = null;
@@ -259,7 +246,6 @@ public class OntologyManipulation {
             qexec.close();
         } catch (QueryExecException e) {
             System.err.println("ERROR" + e.getMessage());
-            e.printStackTrace();
             // System.exit(0);
         }
         return a;
@@ -267,7 +253,7 @@ public class OntologyManipulation {
 
     public List<String> sinaisVitais(String individual) {
 
-        List<String> sinaisVitais = new ArrayList<String>();      
+        List<String> sinaisVitais = new ArrayList<>();
 
         // Buscando nível do indivíduo
         String queryString = "PREFIX ont: <" + URI + "#>\n"
@@ -282,23 +268,21 @@ public class OntologyManipulation {
 
         ResultSet results = null;
         try (QueryExecution qexec = QueryExecutionFactory.create(query, infeReadModel)) {
-            results = qexec.execSelect();            
-                        
+            results = qexec.execSelect();
+
             for (int i = 0; results.hasNext(); i++) {
                 QuerySolution soln = results.nextSolution();
                 Resource resource = soln.getResource("?type");
-            
-            
+
                 String result = resource.toString();
-                String[] classificacao = result.split("#");                
+                String[] classificacao = result.split("#");
                 sinaisVitais.add(classificacao[1]);
-                
+
             }
             //ajeita o n�vel de disfagia aqui
             qexec.close();
         } catch (QueryExecException e) {
             System.err.println("ERROR" + e.getMessage());
-            e.printStackTrace();
             // System.exit(0);
         }
         return sinaisVitais;
