@@ -8,8 +8,11 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        
         <title>SOS_Ontology</title>
+        <!-- Icone -->        
+        <link rel="icon" type="image/png" href="Resources/imagens/icons/icon.ico">
+        
     </head>
     <body>
         <h1>Rodando...</h1>        

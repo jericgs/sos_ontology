@@ -25,8 +25,8 @@ import java.util.logging.Logger;
  * @author jerick.gs
  */
 public class Verificador implements Runnable {
-
-    int sindromeGupo;
+       
+    private int sindromeGupo;
     private int fc;
     private double sat;
 
@@ -49,9 +49,9 @@ public class Verificador implements Runnable {
 
     }
 
-    public void start(boolean comando) {
-        this.thread.start();
+    public void start(boolean comando) {        
         this.logico = comando;
+        this.thread.start();        
     }
 
     public void stop(boolean comando) {
@@ -70,13 +70,13 @@ public class Verificador implements Runnable {
             try {
 
                 Thread.sleep(1000);
-
+                
                 if (!regulacoesEmAndamento.isEmpty()) {
 
                     for (int i = 0; i < regulacoesEmAndamento.size(); i++) {
 
                         //CHAMANDO INTELIGÊNCIA SOS_ONTOLOGY
-                        ont = new OntologyManipulation("C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//SOS_Ontology.owl", "C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//Rules.txt");
+                        ont = new OntologyManipulation("C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//SOS_Ontology.owl", "C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//Rules.txt");                                                                        
 
                         if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("Andamento")) {
 
