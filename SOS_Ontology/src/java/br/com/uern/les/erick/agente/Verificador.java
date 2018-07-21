@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * @author jerick.gs
  */
 public class Verificador implements Runnable {
-       
+
     private int sindromeGupo;
     private int fc;
     private double sat;
@@ -49,9 +49,9 @@ public class Verificador implements Runnable {
 
     }
 
-    public void start(boolean comando) {        
+    public void start(boolean comando) {
         this.logico = comando;
-        this.thread.start();        
+        this.thread.start();
     }
 
     public void stop(boolean comando) {
@@ -67,235 +67,201 @@ public class Verificador implements Runnable {
             RegulacaoDAO regulacaoDAO = new RegulacaoDAO(connection);
             List<Regulacao> regulacoesEmAndamento = regulacaoDAO.getRegulacaoAndamento();
 
-            try {
+            if (!regulacoesEmAndamento.isEmpty()) {
 
-                Thread.sleep(1000);
-                
-                if (!regulacoesEmAndamento.isEmpty()) {
+                for (int i = 0; i < regulacoesEmAndamento.size(); i++) {
 
-                    for (int i = 0; i < regulacoesEmAndamento.size(); i++) {
+                    //CHAMANDO INTELIGÊNCIA SOS_ONTOLOGY
+                    ont = new OntologyManipulation("C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//SOS_Ontology.owl", "C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//Rules.txt");
 
-                        //CHAMANDO INTELIGÊNCIA SOS_ONTOLOGY
-                        ont = new OntologyManipulation("C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//SOS_Ontology.owl", "C://xampp//htdocs//sos_ontology//SOS_Ontology//src//ontology//Rules.txt");                                                                        
+                    if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("Andamento")) {
 
-                        if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("Andamento")) {
+                        //ETIOLOGICO
+                        if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getGs())
+                                && (regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getSocial())) {
 
-                            //ETIOLOGICO
-                            if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getGs())
-                                    && (regulacoesEmAndamento.get(i).getGs() > regulacoesEmAndamento.get(i).getGe())) {
+                            this.sindromeGupo = 1;
 
-                                if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getSocial())
-                                        && (regulacoesEmAndamento.get(i).getSocial() > regulacoesEmAndamento.get(i).getGe())) {
+                        } else {
 
-                                    this.sindromeGupo = 1;
+                            //SEMIOLOGICO
+                            if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getGe())
+                                    && (regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getSocial())) {
 
-                                }
-
-                            } else {
-
-                                //SEMIOLOGICO
-                                if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getGe())
-                                        && (regulacoesEmAndamento.get(i).getGe() > regulacoesEmAndamento.get(i).getGs())) {
-
-                                    if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getSocial())
-                                            && (regulacoesEmAndamento.get(i).getSocial() > regulacoesEmAndamento.get(i).getGs())) {
-
-                                        this.sindromeGupo = 2;
-
-                                    }
-
-                                } else {
-
-                                    //VELÊNCIA
-                                    if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGe())
-                                            && (regulacoesEmAndamento.get(i).getGe() > regulacoesEmAndamento.get(i).getSocial())) {
-
-                                        if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGs())
-                                                && (regulacoesEmAndamento.get(i).getGs() > regulacoesEmAndamento.get(i).getSocial())) {
-
-                                            this.sindromeGupo = 3;
-
-                                        }
-
-                                    } else {
-                                        this.sindromeGupo = 0;
-                                    }
-
-                                }
-
-                            }
-
-                            this.fc = 200;
-                            this.sat = 0.95;
-
-                            //INSERINDO DADOS
-                            ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), this.fc, this.sat);
-
-                        }
-
-                        if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoOB")) {
-
-                            this.sindromeGupo = 0;
-
-                            OcorrenciasbDAO ocorrenciasbDAO = new OcorrenciasbDAO(connection);
-                            int idOB = ocorrenciasbDAO.buscarOcorrenciaSB(regulacoesEmAndamento.get(i).getIdR());
-
-                            int idV = ocorrenciasbDAO.SinaisVitatisOB(idOB);
-                            SinaisVitaisDAO sinaisVitaisDAO = new SinaisVitaisDAO(connection);
-                            SinaisVitais sv = sinaisVitaisDAO.getSinaisVitais(idV);
-
-                            if (sv.getIdV() != 0) {
-                                //INFERINDO CONHECIMENTO
-                                int freqCardiaca = Integer.parseInt(sv.getFc());
-                                int satO = Integer.parseInt(sv.getSatComSuport());
-                                double satOxigenio = satO / 100;
-
-                                //INSERINDO DADOS
-                                ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
-
-                            }
-
-                        }
-
-                        if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoOA")) {
-
-                            //ETIOLOGICO
-                            if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getGs())
-                                    && (regulacoesEmAndamento.get(i).getGs() > regulacoesEmAndamento.get(i).getGe())) {
-
-                                if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getSocial())
-                                        && (regulacoesEmAndamento.get(i).getSocial() > regulacoesEmAndamento.get(i).getGe())) {
-
-                                    this.sindromeGupo = 1;
-
-                                }
+                                this.sindromeGupo = 2;
 
                             } else {
 
-                                //SEMIOLOGICO
-                                if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getGe())
-                                        && (regulacoesEmAndamento.get(i).getGe() > regulacoesEmAndamento.get(i).getGs())) {
+                                //VELÊNCIA
+                                if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGe())
+                                        && (regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGs())) {
 
-                                    if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getSocial())
-                                            && (regulacoesEmAndamento.get(i).getSocial() > regulacoesEmAndamento.get(i).getGs())) {
-
-                                        this.sindromeGupo = 2;
-
-                                    }
+                                    this.sindromeGupo = 3;
 
                                 } else {
-
-                                    //VELÊNCIA
-                                    if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGe())
-                                            && (regulacoesEmAndamento.get(i).getGe() > regulacoesEmAndamento.get(i).getSocial())) {
-
-                                        if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGs())
-                                                && (regulacoesEmAndamento.get(i).getGs() > regulacoesEmAndamento.get(i).getSocial())) {
-
-                                            this.sindromeGupo = 3;
-
-                                        }
-
-                                    } else {
-                                        this.sindromeGupo = 0;
-                                    }
-
+                                    this.sindromeGupo = 0;
                                 }
 
                             }
 
-                            OcorrenciasaDAO ocorrenciasaDAO = new OcorrenciasaDAO(connection);
-                            int idOA = ocorrenciasaDAO.buscarOcorrenciaSA(regulacoesEmAndamento.get(i).getIdR());
-
-                            int idV = ocorrenciasaDAO.SinaisVitatisOA(idOA);
-                            SinaisVitaisDAO svdao = new SinaisVitaisDAO(connection);
-                            SinaisVitais sinaisVitais = svdao.getSinaisVitais(idV);
-
-                            if (sinaisVitais.getIdV() != 0) {
-                                //INFERINDO CONHECIMENTO
-                                int freqCardiaca = Integer.parseInt(sinaisVitais.getFc());
-                                int satO = Integer.parseInt(sinaisVitais.getSatComSuport());
-                                double satOxigenio = satO / 100;
-
-                                //INSERINDO DADOS
-                                ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
-
-                            }
-
                         }
 
-                        if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoTroca")) {
+                        this.fc = 200;
+                        this.sat = 0.95;
 
-                            this.sindromeGupo = 0;
-
-                            OcorrenciasbDAO ocorrenciasbDAO = new OcorrenciasbDAO(connection);
-                            int idOB = ocorrenciasbDAO.buscarOcorrenciaSB(regulacoesEmAndamento.get(i).getIdR());
-
-                            int idV = ocorrenciasbDAO.SinaisVitatisOB(idOB);
-                            SinaisVitaisDAO sinaisVitaisDAO = new SinaisVitaisDAO(connection);
-                            SinaisVitais sv = sinaisVitaisDAO.getSinaisVitais(idV);
-
-                            if (sv.getIdV() != 0) {
-                                //INFERINDO CONHECIMENTO
-                                int freqCardiaca = Integer.parseInt(sv.getFc());
-                                int satO = Integer.parseInt(sv.getSatComSuport());
-                                double satOxigenio = satO / 100;
-
-                                //INSERINDO DADOS                                
-                                ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
-
-                            }
-
-                        }
-
-                        //INFERINDO CONHECIMENTO
-                        ont.processJenaRules();
-
-                        String tipoDeSuporte = ont.inferencia("Occurrence");
-                        System.out.println("Tipo de Suporte: " + tipoDeSuporte);
-
-                        String tipoDeUrgency = ont.inferencia("Urgency");
-                        System.out.println("Tipo De Urgency: " + tipoDeUrgency);
-
-                        String tipoDeGSyndrome = ont.inferencia("Syndrome");
-                        System.out.println("Sindrome: " + tipoDeGSyndrome);
-
-                        List<String> vitalSigns = ont.sinaisVitais("VitalSigns");
-                        System.out.println("Sinais Vitais1: " + vitalSigns.get(0));
-                        System.out.println("Sinais Vitais2: " + vitalSigns.get(1));
-
-                        //MODELO CLASSIFICADA
-                        Classificada classificada = new Classificada();
-                        classificada.setIdR(regulacoesEmAndamento.get(i).getIdR());
-                        classificada.setTipoDeSuporte(tipoDeSuporte);
-                        classificada.setGrupoSindromico(tipoDeUrgency);
-                        classificada.setNivelGravidade(tipoDeGSyndrome);
-
-                        //VERIFICAR SE A INFERENCIA DA REGULAÇÃO JÁ EXISTE NO BD
-                        ClassificadaDAO classificadaDAO = new ClassificadaDAO(connection);
-                        int idClassificacao = classificadaDAO.buscandoClassificacao(regulacoesEmAndamento.get(i).getIdR());
-
-                        if (idClassificacao == 0) {
-                            //INSERE A CLASSIFICAÇÃO
-                            classificada.setIdC(idClassificacao);
-                            classificadaDAO.inserindoRegulacao(classificada);
-
-                        }
-
-                        if (idClassificacao != 0) {
-                            //ATUALIZA A CLASSIFICAÇÃO
-                            classificada.setIdC(idClassificacao);
-                            classificadaDAO.atualizarClassificacao(classificada);
-
-                        }
-
-                        System.out.println("------ Repetindo-----");
+                        //INSERINDO DADOS
+                        ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), this.fc, this.sat);
 
                     }
-                }
 
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Verificador.class.getName()).log(Level.SEVERE, null, ex);
+                    if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoOB")) {
+
+                        this.sindromeGupo = 0;
+
+                        OcorrenciasbDAO ocorrenciasbDAO = new OcorrenciasbDAO(connection);
+                        int idOB = ocorrenciasbDAO.buscarOcorrenciaSB(regulacoesEmAndamento.get(i).getIdR());
+
+                        int idV = ocorrenciasbDAO.SinaisVitatisOB(idOB);
+                        SinaisVitaisDAO sinaisVitaisDAO = new SinaisVitaisDAO(connection);
+                        SinaisVitais sv = sinaisVitaisDAO.getSinaisVitais(idV);
+
+                        if (sv.getIdV() != 0) {
+                            //INFERINDO CONHECIMENTO
+                            int freqCardiaca = Integer.parseInt(sv.getFc());
+                            System.out.println("------------- " + freqCardiaca);
+                            int satO = Integer.parseInt(sv.getSatComSuport());
+                            System.out.println("------------- " + satO);
+                            double satOxigenio = (double) satO / 100;
+
+                            System.out.println("------------- " + satOxigenio);
+
+                            //INSERINDO DADOS
+                            ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
+
+                        }
+
+                    }
+
+                    if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoOA")) {
+
+                        //ETIOLOGICO
+                        if ((regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getGs())
+                                && (regulacoesEmAndamento.get(i).getGe() < regulacoesEmAndamento.get(i).getSocial())) {
+
+                            this.sindromeGupo = 1;
+
+                        } else {
+
+                            //SEMIOLOGICO
+                            if ((regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getGe())
+                                    && (regulacoesEmAndamento.get(i).getGs() < regulacoesEmAndamento.get(i).getSocial())) {
+
+                                this.sindromeGupo = 2;
+
+                            } else {
+
+                                //VELÊNCIA
+                                if ((regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGe())
+                                        && (regulacoesEmAndamento.get(i).getSocial() < regulacoesEmAndamento.get(i).getGs())) {
+
+                                    this.sindromeGupo = 3;
+
+                                } else {
+                                    this.sindromeGupo = 0;
+                                }
+
+                            }
+
+                        }
+
+                        OcorrenciasaDAO ocorrenciasaDAO = new OcorrenciasaDAO(connection);
+                        int idOA = ocorrenciasaDAO.buscarOcorrenciaSA(regulacoesEmAndamento.get(i).getIdR());
+
+                        int idV = ocorrenciasaDAO.SinaisVitatisOA(idOA);
+                        SinaisVitaisDAO svdao = new SinaisVitaisDAO(connection);
+                        SinaisVitais sinaisVitais = svdao.getSinaisVitais(idV);
+
+                        if (sinaisVitais.getIdV() != 0) {
+                            //INFERINDO CONHECIMENTO
+                            int freqCardiaca = Integer.parseInt(sinaisVitais.getFc());
+                            int satO = Integer.parseInt(sinaisVitais.getSatComSuport());
+                            double satOxigenio = satO / 100;
+
+                            //INSERINDO DADOS
+                            ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
+
+                        }
+
+                    }
+
+                    if (regulacoesEmAndamento.get(i).getStatus().equalsIgnoreCase("AndamentoTroca")) {
+
+                        this.sindromeGupo = 0;
+
+                        OcorrenciasbDAO ocorrenciasbDAO = new OcorrenciasbDAO(connection);
+                        int idOB = ocorrenciasbDAO.buscarOcorrenciaSB(regulacoesEmAndamento.get(i).getIdR());
+
+                        int idV = ocorrenciasbDAO.SinaisVitatisOB(idOB);
+                        SinaisVitaisDAO sinaisVitaisDAO = new SinaisVitaisDAO(connection);
+                        SinaisVitais sv = sinaisVitaisDAO.getSinaisVitais(idV);
+
+                        if (sv.getIdV() != 0) {
+                            //INFERINDO CONHECIMENTO
+                            int freqCardiaca = Integer.parseInt(sv.getFc());
+                            int satO = Integer.parseInt(sv.getSatComSuport());
+                            double satOxigenio = satO / 100;
+
+                            //INSERINDO DADOS
+                            ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
+
+                        }
+
+                    }
+
+                    //INFERINDO CONHECIMENTO
+                    ont.processJenaRules();
+
+                    String tipoDeSuporte = ont.inferencia("Occurrence");
+                    System.out.println("Tipo de Suporte: " + tipoDeSuporte);
+
+                    String tipoDeUrgency = ont.inferencia("Urgency");
+                    System.out.println("Tipo De Urgency: " + tipoDeUrgency);
+
+                    String tipoDeGSyndrome = ont.inferencia("Syndrome");
+                    System.out.println("Sindrome: " + tipoDeGSyndrome);
+
+                    List<String> vitalSigns = ont.sinaisVitais("VitalSigns");
+                    System.out.println("Sinais Vitais1: " + vitalSigns.get(0));
+                    System.out.println("Sinais Vitais2: " + vitalSigns.get(1));
+
+                    //MODELO CLASSIFICADA
+                    Classificada classificada = new Classificada();
+                    classificada.setIdR(regulacoesEmAndamento.get(i).getIdR());
+                    classificada.setTipoDeSuporte(tipoDeSuporte);
+                    classificada.setGrupoSindromico(tipoDeGSyndrome);
+                    classificada.setNivelGravidade(tipoDeUrgency);
+
+                    //VERIFICAR SE A INFERENCIA DA REGULAÇÃO JÁ EXISTE NO BD
+                    ClassificadaDAO classificadaDAO = new ClassificadaDAO(connection);
+                    int idClassificacao = classificadaDAO.buscandoClassificacao(regulacoesEmAndamento.get(i).getIdR());
+
+                    if (idClassificacao == 0) {
+                        //INSERE A CLASSIFICAÇÃO
+                        classificada.setIdC(idClassificacao);
+                        classificadaDAO.inserindoRegulacao(classificada);
+
+                    }
+
+                    if (idClassificacao != 0) {
+                        //ATUALIZA A CLASSIFICAÇÃO
+                        classificada.setIdC(idClassificacao);
+                        classificadaDAO.atualizarClassificacao(classificada);
+
+                    }
+
+                    System.out.println("------ Repetindo-----");
+
+                }
             }
 
         }
