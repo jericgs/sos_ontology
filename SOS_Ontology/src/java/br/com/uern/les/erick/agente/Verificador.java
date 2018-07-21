@@ -128,12 +128,12 @@ public class Verificador implements Runnable {
                         if (sv.getIdV() != 0) {
                             //INFERINDO CONHECIMENTO
                             int freqCardiaca = Integer.parseInt(sv.getFc());
-                            System.out.println("------------- " + freqCardiaca);
+                            //System.out.println("------------- " + freqCardiaca);
                             int satO = Integer.parseInt(sv.getSatComSuport());
-                            System.out.println("------------- " + satO);
+                            //System.out.println("------------- " + satO);
                             double satOxigenio = (double) satO / 100;
 
-                            System.out.println("------------- " + satOxigenio);
+                            //System.out.println("------------- " + satOxigenio);
 
                             //INSERINDO DADOS
                             ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);
@@ -185,7 +185,9 @@ public class Verificador implements Runnable {
                             //INFERINDO CONHECIMENTO
                             int freqCardiaca = Integer.parseInt(sinaisVitais.getFc());
                             int satO = Integer.parseInt(sinaisVitais.getSatComSuport());
-                            double satOxigenio = satO / 100;
+                            double satOxigenio = (double) satO / 100;
+                            
+                            //System.out.println("------------- " + satOxigenio);
 
                             //INSERINDO DADOS
                             ont.inserindoDadosOntology(regulacoesEmAndamento.get(i).getIdR(), this.sindromeGupo, regulacoesEmAndamento.get(i).getGu(), freqCardiaca, satOxigenio);

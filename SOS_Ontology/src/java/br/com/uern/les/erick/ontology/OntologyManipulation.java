@@ -117,8 +117,7 @@ public final class OntologyManipulation {
 
         try {
             Model model = ModelFactory.createDefaultModel();
-            Resource configuration = model.createResource();
-            System.out.println("Passou: " + configuration);
+            Resource configuration = model.createResource();            
             configuration.addProperty(ReasonerVocabulary.PROPruleSet, jenaRulesFilePath);
 
             // Create an instance of a reasoner
@@ -225,7 +224,7 @@ public final class OntologyManipulation {
                 + "ont:" + individual + " rdf:type ?type .\n"
                 + "}\n";
 
-        System.out.println(queryString);
+        //System.out.println(queryString);
         Query query = QueryFactory.create(queryString);
 
         ResultSet results = null;
